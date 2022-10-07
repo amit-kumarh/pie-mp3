@@ -13,11 +13,26 @@ it = pyfirmata.util.Iterator(board)
 it.start()
 
 sR = board.get_pin('d:10:i') #inputs from board. change ports when needed.
-sR = board.get_pin('d:13:o') #inputs from board. change ports when needed.
+sL = board.get_pin('d:13:o') #inputs from board. change ports when needed.
 
-
+mRight = board.get_pin('d:13:o')#need to change the pins
+mLeft = board.get_pin('d:13:o')#need to change the pins
 
 wR = 0
 wL = 0
 
+go = 1
 
+while go == 1: #while true
+    if sR < 0.5 and sL < 0.5:
+        wR = 1
+        wL = 1
+    elif sR > 0.5 and sL < 0.5:
+        wR = 0.3
+        wL = 1
+    elif sR < 0.5 and sL > 0.5:
+        wR = 1
+        wL = 0.3
+
+    mRight.write(wR)
+    mLeft.write(wL)
